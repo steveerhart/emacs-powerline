@@ -409,6 +409,13 @@ install the memoized function over the original function."
                                                    (redraw-modeline)))))
 (defpowerline lcl         current-input-method-title)
 (defpowerline rmw         "%*")
+
+(defpowerline evil-mode (cond ((evil-normal-state-p) "N")
+                              ((evil-insert-state-p) "I")
+                              ((evil-emacs-state-p) "E")
+                              (t " ")))
+                              
+
 (defpowerline major-mode  (propertize (format-mode-line mode-name)
                                       'help-echo "Major mode\n\ mouse-1: Display major mode menu\n\ mouse-2: Show help for major mode\n\ mouse-3: Toggle minor modes"
                                       'local-map (let ((map (make-sparse-keymap)))
@@ -466,6 +473,7 @@ install the memoized function over the original function."
 (setq-default mode-line-format
               (list "%e"
                     '(:eval (concat
+                             (powerline-evil-mode      'left   nil  )
                              (powerline-lcl            'left   nil  )
                              (powerline-rmw            'left   nil  )
                              (powerline-buffer-id      'left   nil  powerline-color1  )
